@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Booking | Gloss Boss Automotive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Teko:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand">
+          <span class="brand-mark">GB</span>
+          <span class="brand-text">
+            <strong>Gloss Boss</strong>
+            <small>Automotive Detailing</small>
+          </span>
+        </a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="booking.html" class="active">Online Booking</a>
+          <a href="portfolio.html">Portfolio</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="section-dark page-hero">
+        <div class="container reveal">
+          <p class="eyebrow">Online Booking</p>
+          <h1>Book your next detail in minutes.</h1>
+          <p class="lead max-text">
+            This form is ready for static hosting. You can connect it later to Formspree,
+            Netlify Forms, WhatsApp, EmailJS, or your own backend.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container booking-layout">
+          <div class="info-card reveal">
+            <h2>Booking Details</h2>
+            <p>
+              Choose your service, preferred date, and vehicle details. Replace the
+              placeholder business info once you move away from Wix.
+            </p>
+            <ul class="feature-list">
+              <li>Fast inquiry workflow</li>
+              <li>Professional premium styling</li>
+              <li>Mobile-friendly form</li>
+              <li>Ready to connect with WhatsApp or email</li>
+            </ul>
+          </div>
+
+          <form class="booking-form reveal delay-1" id="bookingForm">
+            <div class="form-row">
+              <label>
+                Full Name
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                Phone Number
+                <input type="tel" name="phone" placeholder="Your number" required />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Email Address
+                <input type="email" name="email" placeholder="Your email" required />
+              </label>
+              <label>
+                Preferred Date
+                <input type="date" name="date" required />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Vehicle Type
+                <select name="vehicle" required>
+                  <option value="">Select vehicle type</option>
+                  <option>Sedan</option>
+                  <option>Hatchback</option>
+                  <option>SUV</option>
+                  <option>Luxury / Sports</option>
+                </select>
+              </label>
+              <label>
+                Service Package
+                <select name="service" required>
+                  <option value="">Select package</option>
+                  <option>Exterior Detail</option>
+                  <option>Interior Reset</option>
+                  <option>Full Detail</option>
+                  <option>Paint Enhancement</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Notes
+              <textarea
+                name="message"
+                rows="6"
+                placeholder="Tell us about the car, location, preferred time, and anything else."
+              ></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Submit Booking Request</button>
+              <a class="btn btn-secondary" href="portfolio.html">See Recent Work</a>
+            </div>
+            <p class="form-note" id="formNote"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-bottom single-line">
+        <span>© 2026 Gloss Boss Automotive</span>
+        <a href="index.html">Return Home</a>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
