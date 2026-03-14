@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Gloss Boss Automotive</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Teko:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body.premium-menu-open { overflow: hidden; }
+      .top-info-bar{ background:#0b0b0b; border-bottom:1px solid rgba(255,255,255,.08); color:rgba(255,255,255,.74); font-size:.92rem; }
+      .top-info-bar .container{ display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:10px 0; }
+      .top-info-bar a{ color:#fff; }
+
+      .premium-menu-toggle {
+        display: none; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.12);
+        border-radius: 14px; background: rgba(255,255,255,.04); color: #fff; align-items: center;
+        justify-content: center; position: relative; cursor: pointer; transition: .25s ease; backdrop-filter: blur(8px);
+      }
+      .premium-menu-toggle:hover { border-color: rgba(255, 32, 60, .35); background: rgba(255,255,255,.07); }
+      .premium-menu-toggle span, .premium-menu-toggle::before, .premium-menu-toggle::after {
+        content: ""; position: absolute; width: 20px; height: 2px; border-radius: 999px; background: #fff; transition: .28s ease;
+      }
+      .premium-menu-toggle::before { transform: translateY(-7px); }
+      .premium-menu-toggle::after { transform: translateY(7px); }
+      .premium-menu-toggle.active span { opacity: 0; }
+      .premium-menu-toggle.active::before { transform: rotate(45deg); }
+      .premium-menu-toggle.active::after { transform: rotate(-45deg); }
+
+      .premium-menu-backdrop {
+        position: fixed; inset: 0; background: rgba(0,0,0,.62); backdrop-filter: blur(4px); z-index: 1190;
+        opacity: 0; pointer-events: none; transition: opacity .3s ease;
+      }
+      .premium-menu-backdrop.show { opacity: 1; pointer-events: auto; }
+
+      .premium-mobile-menu {
+        position: fixed; top: 0; right: 0; width: min(84vw, 360px); height: 100vh; z-index: 1200;
+        background:
+          radial-gradient(circle at top right, rgba(255,0,0,.14), transparent 24%),
+          linear-gradient(180deg, rgba(18,18,18,.98), rgba(5,5,5,.99));
+        border-left: 1px solid rgba(255,255,255,.08); box-shadow: -24px 0 54px rgba(0,0,0,.42);
+        transform: translateX(100%); transition: transform .35s ease; padding: 88px 22px 28px;
+        display: flex; flex-direction: column; gap: 14px; overflow-y: auto;
+      }
+      .premium-mobile-menu.open { transform: translateX(0); }
+
+      .premium-mobile-menu-close {
+        position: absolute; top: 18px; right: 18px; width: 44px; height: 44px; border: none;
+        border-radius: 12px; background: rgba(255,255,255,.05); color: #fff; font-size: 1.5rem; cursor: pointer;
+      }
+
+      .premium-mobile-menu-brand { padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .premium-mobile-menu-brand strong { display: block; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+      .premium-mobile-menu-brand span { display: block; font-size: .78rem; color: rgba(255,255,255,.7); letter-spacing: 2px; text-transform: uppercase; }
+
+      .premium-mobile-link {
+        padding: 16px 14px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px;
+        background: rgba(255,255,255,.03); font-weight: 700; color: #fff; transition: .25s ease;
+      }
+      .premium-mobile-link:hover, .premium-mobile-link.active { border-color: rgba(255,0,0,.28); transform: translateX(-2px); }
+
+      .premium-mobile-cta {
+        text-align: center; margin-top: 8px; padding: 14px 18px; border-radius: 999px;
+        background: linear-gradient(135deg, #ff1f3d, #8d0015); color: #fff; font-weight: 800;
+        box-shadow: 0 10px 24px rgba(255,0,0,.18);
+      }
+
+      .portfolio-intro{ max-width: 920px; }
+      .video-showcase-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:24px; margin-bottom:28px; }
+
+      .gallery-card{ overflow:hidden; border-radius:22px; }
+      .gallery-video-wrap{
+        width:100%; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.06); background:#000;
+      }
+      .gallery-video{
+        width:100%; height:340px; object-fit:cover; display:block; background:#000;
+      }
+      .gallery-label{
+        display:inline-block; margin-bottom:10px; font-size:.72rem; text-transform:uppercase;
+        letter-spacing:2px; color:#ff3755; font-weight:800;
+      }
+      .portfolio-note{ color:rgba(255,255,255,.72); margin-top:8px; }
+      .portfolio-cta{
+        margin-top:34px; border:1px solid rgba(255,255,255,.08); border-radius:22px; padding:24px;
+        background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      }
+      .portfolio-cta h3{ margin-bottom:8px; }
+      .portfolio-cta p{ color:rgba(255,255,255,.72); margin-bottom:18px; }
+
+      .portfolio-btns{ display:flex; gap:12px; flex-wrap:wrap; }
+      .portfolio-btn{
+        display:inline-flex; align-items:center; justify-content:center; padding:12px 18px; border-radius:999px; font-weight:700;
+      }
+      .portfolio-btn.primary{ background:linear-gradient(135deg, #ff1f3d, #8d0015); color:#fff; }
+      .portfolio-btn.secondary{ border:1px solid rgba(255,255,255,.18); color:#fff; background:rgba(255,255,255,.03); }
+
+      .workshop-footer{
+        display:grid; grid-template-columns:1.15fr .9fr .9fr; gap:24px; padding:42px 0 24px;
+      }
+      .workshop-footer h3{ margin-bottom:12px; font-size:1.05rem; text-transform:uppercase; }
+      .workshop-footer p, .workshop-footer a, .workshop-footer li{ color:rgba(255,255,255,.72); }
+      .workshop-footer a{ display:block; margin-bottom:8px; }
+      .workshop-footer ul{ list-style:none; padding:0; margin:0; display:grid; gap:8px; }
+
+      @media (max-width: 980px) {
+        .site-nav { display: none; }
+        .premium-menu-toggle { display: inline-flex; }
+        .video-showcase-grid, .workshop-footer { grid-template-columns:1fr; }
+      }
+      @media (max-width: 680px) {
+        .top-info-bar .container{ justify-content:center; text-align:center; }
+        .gallery-video{ height:250px; }
+        .portfolio-btn{ width:100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-info-bar">
+      <div class="container">
+        <div>📍 Lane 1, Sarabha Nagar, Patiala</div>
+        <div>📞 <a href="tel:8195000929">8195000929</a></div>
+      </div>
+    </div>
+
+    <div class="bg-grid"></div>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="index.html" class="brand">
+          <span class="brand-mark">GB</span>
+          <span class="brand-text">
+            <strong>Gloss Boss</strong>
+            <small>Automotive Detailing</small>
+          </span>
+        </a>
+        <button class="premium-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="premiumMobileMenu">
+          <span></span>
+        </button>
+        <nav class="site-nav">
+          <a href="index.html">Home</a>
+          <a href="booking.html">Online Booking</a>
+          <a href="portfolio.html" class="active">Portfolio</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="premium-menu-backdrop"></div>
+
+    <aside class="premium-mobile-menu" id="premiumMobileMenu" aria-hidden="true">
+      <button class="premium-mobile-menu-close" aria-label="Close menu">&times;</button>
+      <div class="premium-mobile-menu-brand">
+        <strong>Gloss Boss</strong>
+        <span>Automotive Detailing</span>
+      </div>
+      <a class="premium-mobile-link" href="index.html">Home</a>
+      <a class="premium-mobile-link" href="booking.html">Online Booking</a>
+      <a class="premium-mobile-link active" href="portfolio.html">Portfolio</a>
+      <a class="premium-mobile-cta" href="booking.html">Book Now</a>
+    </aside>
+
+    <main class="page-main">
+      <section class="section-dark page-hero">
+        <div class="container reveal portfolio-intro">
+          <p class="eyebrow">Portfolio</p>
+          <h1>Premium portfolio with cinematic video cards and a stronger workshop look.</h1>
+          <p class="lead max-text">
+            This version is rebuilt from your uploaded portfolio page and keeps the same premium header menu while replacing the placeholder cards with video-ready portfolio cards.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="video-showcase-grid">
+            <article class="gallery-card reveal">
+              <div class="gallery-video-wrap">
+                <video class="gallery-video" autoplay muted loop playsinline controls>
+                  <source src="detailing.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="gallery-copy">
+                <span class="gallery-label">Video 01</span>
+                <h2>Full Detailing Transformation</h2>
+                <p>Complete interior and exterior detailing with a deeper gloss, cleaner finish, and stronger visual impact.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card reveal delay-1">
+              <div class="gallery-video-wrap">
+                <video class="gallery-video" autoplay muted loop playsinline controls>
+                  <source src="videos/tint.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="gallery-copy">
+                <span class="gallery-label">Video 02</span>
+                <h2>Window Tint Installation</h2>
+                <p>Professional window tint for better privacy, heat reduction, and a sharper, more aggressive appearance.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card reveal">
+              <div class="gallery-video-wrap">
+                <video class="gallery-video" autoplay muted loop playsinline controls>
+                  <source src="videos/dryclean.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="gallery-copy">
+                <span class="gallery-label">Video 03</span>
+                <h2>Interior Dry Cleaning</h2>
+                <p>Deep interior dry cleaning that removes dirt, stains, and odors to restore a fresh, comfortable cabin.</p>
+              </div>
+            </article>
+
+            <article class="gallery-card reveal delay-1">
+              <div class="gallery-video-wrap">
+                <video class="gallery-video" autoplay muted loop playsinline controls>
+                  <source src="videos/ppf.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="gallery-copy">
+                <span class="gallery-label">Video 04</span>
+                <h2>PPF / Protection Work</h2>
+                <p>Use this card for PPF application, protection results, or any premium finish video from your workshop.</p>
+              </div>
+            </article>
+          </div>
+
+          <p class="portfolio-note reveal">Upload your own clips in a <strong>videos</strong> folder and replace these sample file names with your real files, such as <strong>videos/shop1.mp4</strong> or <strong>videos/reel2.mp4</strong>.</p>
+
+          <div class="portfolio-cta reveal">
+            <h3>Better than image-only cards</h3>
+            <p>Short videos of detailing, tint, dry cleaning, and PPF make the page feel much more premium and trustworthy.</p>
+            <div class="portfolio-btns">
+              <a class="portfolio-btn primary" href="booking.html">Book Now</a>
+              <a class="portfolio-btn secondary" href="tel:8195000929">Call 8195000929</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container workshop-footer">
+        <div>
+          <h3>Gloss Boss Automotive</h3>
+          <p>Premium workshop for detailing, PPF, window tint, accessories, premium car wash, and dry cleaning in Patiala.</p>
+          <a href="tel:8195000929">📞 8195000929</a>
+          <a href="https://wa.me/918195000929">WhatsApp Chat</a>
+        </div>
+        <div>
+          <h3>Workshop Info</h3>
+          <a href="#">📍 Lane 1, Sarabha Nagar, Patiala</a>
+          <ul>
+            <li>Detailing</li>
+            <li>PPF</li>
+            <li>Window Tint</li>
+            <li>Accessories</li>
+            <li>Premium Car Wash</li>
+            <li>Dry Cleaning</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a>
+          <a href="booking.html">Online Booking</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="booking.html">Book Now</a>
+        </div>
+      </div>
+      <div class="container footer-bottom single-line">
+        <span>© 2026 Gloss Boss Automotive</span>
+        <a href="booking.html">Book Now</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      (function () {
+        const menuToggle = document.querySelector('.premium-menu-toggle');
+        const mobileMenu = document.querySelector('.premium-mobile-menu');
+        const menuBackdrop = document.querySelector('.premium-menu-backdrop');
+        const mobileClose = document.querySelector('.premium-mobile-menu-close');
+        const mobileLinks = document.querySelectorAll('.premium-mobile-menu a');
+
+        if (!menuToggle || !mobileMenu || !menuBackdrop || !mobileClose) return;
+
+        function openMenu() {
+          mobileMenu.classList.add('open');
+          menuBackdrop.classList.add('show');
+          menuToggle.classList.add('active');
+          menuToggle.setAttribute('aria-expanded', 'true');
+          mobileMenu.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('premium-menu-open');
+        }
+
+        function closeMenu() {
+          mobileMenu.classList.remove('open');
+          menuBackdrop.classList.remove('show');
+          menuToggle.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('premium-menu-open');
+        }
+
+        menuToggle.addEventListener('click', () => {
+          if (mobileMenu.classList.contains('open')) closeMenu();
+          else openMenu();
+        });
+
+        mobileClose.addEventListener('click', closeMenu);
+        menuBackdrop.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeMenu();
+        });
+      })();
+    </script>
+  </body>
+</html>

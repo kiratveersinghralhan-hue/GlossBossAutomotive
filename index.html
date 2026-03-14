@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gloss Boss Automotive Detailing</title>
+  <meta name="description" content="Professional car detailing with premium interior, exterior, and gloss restoration services." />
+  <style>
+    :root{
+      --bg:#050505;
+      --bg2:#0d0d0d;
+      --card:#121212;
+      --line:rgba(255,255,255,.08);
+      --text:#fff;
+      --muted:#b8b8b8;
+      --red:#d90429;
+      --red2:#ff1f3d;
+      --white:#f6f6f6;
+      --max:1200px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(217,4,41,.12), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(255,255,255,.03), transparent 20%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .container{width:min(92%,var(--max));margin:auto}
+    .topbar{
+      background:#0b0b0b;
+      border-bottom:1px solid var(--line);
+      color:var(--muted);
+      font-size:.92rem;
+    }
+    .topbar .container{
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 0;
+    }
+    header{
+      position:sticky;top:0;z-index:1000;
+      background:rgba(5,5,5,.85);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:18px;
+    }
+    .brand strong{display:block;font-size:1.35rem;letter-spacing:1px;text-transform:uppercase}
+    .brand span{font-size:.78rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+
+    .menu{
+      display:flex;gap:22px;align-items:center;flex-wrap:wrap
+    }
+    .menu a{font-weight:600}
+    .menu a:hover{color:var(--red2)}
+    .nav-cta{
+      padding:11px 18px;border-radius:999px;background:linear-gradient(135deg,var(--red2),#8d0015);
+      color:#fff;font-weight:700;box-shadow:0 10px 24px rgba(255,0,0,.18)
+    }
+
+    .menu-toggle{
+      display:none;
+      width:48px;
+      height:48px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.03);
+      color:#fff;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      cursor:pointer;
+      transition:.25s ease;
+    }
+    .menu-toggle:hover{
+      border-color:rgba(255,0,0,.22);
+      background:rgba(255,255,255,.05);
+    }
+    .menu-toggle span,
+    .menu-toggle::before,
+    .menu-toggle::after{
+      content:"";
+      position:absolute;
+      width:20px;
+      height:2px;
+      border-radius:999px;
+      background:#fff;
+      transition:.28s ease;
+    }
+    .menu-toggle::before{transform:translateY(-7px)}
+    .menu-toggle::after{transform:translateY(7px)}
+    .menu-toggle.active span{opacity:0}
+    .menu-toggle.active::before{transform:rotate(45deg)}
+    .menu-toggle.active::after{transform:rotate(-45deg)}
+
+    .menu-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.62);
+      backdrop-filter:blur(4px);
+      z-index:1100;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s ease;
+    }
+    .menu-backdrop.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .mobile-menu{
+      position:fixed;
+      top:0;
+      right:0;
+      width:min(84vw,360px);
+      height:100vh;
+      z-index:1200;
+      background:
+        radial-gradient(circle at top right, rgba(255,0,0,.12), transparent 25%),
+        linear-gradient(180deg, rgba(18,18,18,.98), rgba(5,5,5,.99));
+      border-left:1px solid rgba(255,255,255,.08);
+      box-shadow:-24px 0 54px rgba(0,0,0,.42);
+      transform:translateX(100%);
+      transition:transform .35s ease;
+      padding:88px 22px 28px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      overflow-y:auto;
+    }
+    .mobile-menu.open{transform:translateX(0)}
+    .mobile-menu-close{
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:44px;
+      height:44px;
+      border:none;
+      border-radius:12px;
+      background:rgba(255,255,255,.05);
+      color:#fff;
+      font-size:1.5rem;
+      cursor:pointer;
+    }
+    .mobile-menu-brand{
+      padding-bottom:8px;
+      margin-bottom:6px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .mobile-menu-brand strong{
+      display:block;
+      font-size:1.2rem;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .mobile-menu-brand span{
+      font-size:.78rem;
+      color:var(--muted);
+      letter-spacing:2px;
+      text-transform:uppercase;
+    }
+    .mobile-link{
+      padding:16px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      background:rgba(255,255,255,.03);
+      font-weight:700;
+      transition:.25s ease;
+    }
+    .mobile-link:hover{
+      border-color:rgba(255,0,0,.24);
+      transform:translateX(-2px);
+    }
+    .mobile-menu .nav-cta{
+      text-align:center;
+      margin-top:8px;
+      border:none;
+    }
+
+    /* slider */
+    .hero-slider{position:relative;height:92vh;min-height:620px;overflow:hidden;background:#000}
+    .slide{
+      position:absolute;inset:0;opacity:0;transform:scale(1.07);
+      transition:opacity .9s ease, transform 1.2s ease;
+      background-size:cover;background-position:center;display:flex;align-items:center
+    }
+    .slide.active{opacity:1;transform:scale(1);z-index:2}
+    .overlay{
+      position:absolute;inset:0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.84) 0%, rgba(0,0,0,.52) 45%, rgba(0,0,0,.72) 100%),
+        linear-gradient(180deg, rgba(120,0,0,.18), rgba(0,0,0,.24));
+    }
+    .slide-inner{position:relative;z-index:2}
+    .slide-content{
+      max-width:720px;transform:translateY(24px);opacity:0;transition:.8s ease .2s
+    }
+    .slide.active .slide-content{transform:translateY(0);opacity:1}
+    .eyebrow{
+      color:var(--red2);font-size:.8rem;font-weight:800;letter-spacing:3px;text-transform:uppercase;
+      margin-bottom:14px
+    }
+    .slide h1{
+      font-size:clamp(2.5rem,6vw,5.4rem);line-height:.95;text-transform:uppercase;letter-spacing:1px;
+      margin-bottom:16px
+    }
+    .slide p{font-size:1.05rem;color:rgba(255,255,255,.88);max-width:620px;margin-bottom:28px}
+    .btns{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;
+      font-weight:800;min-width:150px;transition:.25s ease;border:1px solid transparent
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--red2),#9d0018);box-shadow:0 12px 28px rgba(255,0,0,.18)}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-outline{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.04)}
+    .btn-outline:hover{background:rgba(255,255,255,.1)}
+    .slider-arrow{
+      position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:52px;height:52px;border:none;
+      border-radius:50%;background:rgba(0,0,0,.4);color:#fff;font-size:1.45rem;cursor:pointer;backdrop-filter:blur(6px)
+    }
+    .slider-arrow:hover{background:rgba(255,0,0,.85)}
+    .prev{left:20px}.next{right:20px}
+    .slider-dots{
+      position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;display:flex;gap:10px
+    }
+    .dot{
+      width:12px;height:12px;border:none;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer
+    }
+    .dot.active{background:var(--red2);transform:scale(1.18);box-shadow:0 0 12px rgba(255,0,0,.35)}
+
+    .section{padding:86px 0}
+    .section-title{font-size:clamp(2rem,4vw,3rem);margin-bottom:14px;text-transform:uppercase}
+    .section-sub{max-width:760px;color:var(--muted);margin-bottom:34px}
+
+    .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)
+    }
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}
+    .stat{
+      background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:20px
+    }
+    .stat strong{display:block;font-size:1.7rem;color:var(--white)}
+    .stat span{color:var(--muted);font-size:.95rem}
+
+    .services{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:22px
+    }
+    .service-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:18px;padding:28px;transition:.28s ease;
+    }
+    .service-card:hover{transform:translateY(-6px);border-color:rgba(255,0,0,.25);box-shadow:0 16px 34px rgba(0,0,0,.28)}
+    .service-no{
+      width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+      background:rgba(255,0,0,.12);color:var(--red2);font-weight:800;margin-bottom:18px
+    }
+    .service-card h3{font-size:1.3rem;margin-bottom:10px}
+    .service-card p{color:var(--muted)}
+
+    .strip{
+      background:
+        linear-gradient(90deg, rgba(255,0,0,.14), rgba(255,255,255,.02), rgba(255,0,0,.12)),
+        #0a0a0a;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .strip .container{
+      padding:26px 0;display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap
+    }
+
+    .showcase-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px
+    }
+    .showcase-item{
+      position:relative;min-height:320px;border-radius:18px;overflow:hidden;border:1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .showcase-bg{
+      position:absolute;inset:0;
+      background-size:cover;background-position:center;transform:scale(1.02);transition:.45s ease
+    }
+    .showcase-item:hover .showcase-bg{transform:scale(1.08)}
+    .showcase-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.72));
+    }
+    .showcase-text{
+      position:absolute;left:18px;right:18px;bottom:18px;z-index:2
+    }
+    .showcase-text h4{font-size:1.25rem;margin-bottom:6px}
+    .showcase-text p{font-size:.95rem;color:#ddd}
+
+    .cta{
+      text-align:center;padding:88px 0
+    }
+    .cta-box{
+      border:1px solid var(--line);border-radius:24px;padding:42px 22px;
+      background:
+        radial-gradient(circle at top center, rgba(255,0,0,.18), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow)
+    }
+    .cta-box p{color:var(--muted);max-width:720px;margin:12px auto 24px}
+
+    footer{
+      border-top:1px solid var(--line);background:#060606
+    }
+    .footer-grid{
+      display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:24px;padding:52px 0 28px
+    }
+    .footer-title{font-size:1.15rem;margin-bottom:12px;text-transform:uppercase}
+    .footer-col p,.footer-col a{color:var(--muted)}
+    .footer-col a{display:block;margin-bottom:8px}
+    .footer-col a:hover{color:var(--white)}
+    .copyright{
+      border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:.92rem;text-align:center
+    }
+
+    .reveal{opacity:0;transform:translateY(24px);transition:.7s ease}
+    .reveal.show{opacity:1;transform:none}
+
+    @media (max-width: 980px){
+      .about-grid,.services,.footer-grid,.showcase-grid{grid-template-columns:1fr}
+      .hero-slider{height:88vh;min-height:560px}
+      .menu{display:none}
+      .menu-toggle{display:flex}
+    }
+    @media (max-width: 680px){
+      .slide h1{font-size:clamp(2rem,10vw,3.3rem)}
+      .slide p{font-size:.96rem}
+      .slider-arrow{width:44px;height:44px;font-size:1.15rem}
+      .prev{left:12px}.next{right:12px}
+      .stats{grid-template-columns:1fr}
+      .topbar .container{justify-content:center;text-align:center}
+      .btns{gap:12px}
+      .btn{width:100%}
+      .mobile-menu{width:min(88vw,340px)}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <div>Premium Car Detailing • Gloss Boss Automotive</div>
+      <div>Book Online • Portfolio • Professional Finish</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">
+        <strong>Gloss Boss</strong>
+        <span>Automotive Detailing</span>
+      </a>
+
+      <nav class="menu">
+        <a href="#">Home</a>
+        <a href="booking.html">Online Booking</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a class="nav-cta" href="booking.html">Book Now</a>
+      </nav>
+
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-backdrop"></div>
+
+  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+    <div class="mobile-menu-brand">
+      <strong>Gloss Boss</strong>
+      <span>Automotive Detailing</span>
+    </div>
+    <a class="mobile-link" href="#">Home</a>
+    <a class="mobile-link" href="booking.html">Online Booking</a>
+    <a class="mobile-link" href="portfolio.html">Portfolio</a>
+    <a class="nav-cta" href="booking.html">Book Now</a>
+  </aside>
+
+  <section class="hero-slider">
+    <div class="slide active" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80')">
+      <div class="overlay"></div>
+      <div class="container slide-inner">
+        <div class="slide-content">
+          <div class="eyebrow">Premium Auto Detailing</div>
+          <h1>Bring Back The Deep Gloss</h1>
+          <p>Professional interior and exterior detailing with a bold finish, refined shine, and attention to every detail.</p>
+          <div class="btns">
+            <a href="booking.html" class="btn btn-primary">Book Now</a>
+            <a href="portfolio.html" class="btn btn-outline">View Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1600&q=80')">
+      <div class="overlay"></div>
+      <div class="container slide-inner">
+        <div class="slide-content">
+          <div class="eyebrow">Interior • Exterior • Protection</div>
+          <h1>Sharp Finish. Clean Presence.</h1>
+          <p>Deep cleaning, paint enhancement, and showroom-style presentation tailored for every vehicle.</p>
+          <div class="btns">
+            <a href="booking.html" class="btn btn-primary">Reserve Your Slot</a>
+            <a href="portfolio.html" class="btn btn-outline">See Results</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80')">
+      <div class="overlay"></div>
+      <div class="container slide-inner">
+        <div class="slide-content">
+          <div class="eyebrow">Gloss Boss Automotive</div>
+          <h1>Detailing That Demands Attention</h1>
+          <p>Elegant, aggressive, and professional detailing crafted to make your car stand out on every road.</p>
+          <div class="btns">
+            <a href="booking.html" class="btn btn-primary">Online Booking</a>
+            <a href="portfolio.html" class="btn btn-outline">Our Work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="slider-arrow prev" aria-label="Previous slide">&#10094;</button>
+    <button class="slider-arrow next" aria-label="Next slide">&#10095;</button>
+
+    <div class="slider-dots">
+      <button class="dot active" aria-label="Slide 1"></button>
+      <button class="dot" aria-label="Slide 2"></button>
+      <button class="dot" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-grid reveal">
+      <div class="panel">
+        <h2 class="section-title">Professional Car Detailing</h2>
+        <p class="section-sub">At Gloss Boss Automotive, we focus on delivering a deep clean, high-gloss finish, and a professional presentation that makes every vehicle stand out. From paint enhancement to interior restoration, every detail matters.</p>
+        <div class="btns">
+          <a href="booking.html" class="btn btn-primary">Online Booking</a>
+          <a href="portfolio.html" class="btn btn-outline">View Portfolio</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="stats">
+          <div class="stat">
+            <strong>Exterior</strong>
+            <span>Deep wash, decontamination, gloss enhancement.</span>
+          </div>
+          <div class="stat">
+            <strong>Interior</strong>
+            <span>Full vacuum, wipe-down, upholstery detailing.</span>
+          </div>
+          <div class="stat">
+            <strong>Protection</strong>
+            <span>Paint sealants and finish-preserving care.</span>
+          </div>
+          <div class="stat">
+            <strong>Finish</strong>
+            <span>Elegant, aggressive, showroom-level presentation.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="container">
+      <strong>Premium Shine • Interior Reset • Exterior Finish • Attention To Detail</strong>
+      <a class="nav-cta" href="booking.html">Book Your Detail</a>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">A premium detailing experience built around gloss, cleanliness, and presentation.</p>
+      </div>
+      <div class="services">
+        <div class="service-card reveal">
+          <div class="service-no">01</div>
+          <h3>Exterior Detailing</h3>
+          <p>Hand wash, decontamination, wheel cleaning, trim refresh, and a polished finish that brings out the best in your vehicle.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-no">02</div>
+          <h3>Interior Detailing</h3>
+          <p>Deep vacuuming, dashboard and panel treatment, seat care, and a clean cabin feel that looks refined and well-kept.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-no">03</div>
+          <h3>Paint & Gloss Enhancement</h3>
+          <p>Finish correction and shine-focused treatment designed to restore depth, clarity, and a more premium overall look.</p>
+        </div>
+     
+      <div class="service-card reveal">
+          <div class="service-no">04</div>
+          <h3>Window Tint</h3>
+          <p>Enhance privacy, reduce heat, and give your vehicle a sleek, premium look with professionally installed window tint.</p>
+        </div>
+ <div class="service-card reveal">
+          <div class="service-no">05</div>
+          <h3>Dry Cleaning</h3>
+          <p>Deep interior dry cleaning that removes dirt, stains, and odors to restore a fresh, comfortable cabin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section-title">Featured Results</h2>
+        <p class="section-sub">A visual showcase section on the home page so the site feels complete, premium, and more convincing.</p>
+      </div>
+
+      <div class="showcase-grid">
+        <a href="portfolio.html" class="showcase-item reveal">
+          <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="showcase-overlay"></div>
+          <div class="showcase-text">
+            <h4>Exterior Finish</h4>
+            <p>Deep gloss and a sharper road presence.</p>
+          </div>
+        </a>
+        <a href="portfolio.html" class="showcase-item reveal">
+          <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="showcase-overlay"></div>
+          <div class="showcase-text">
+            <h4>Interior Reset</h4>
+            <p>Refined cabin detailing with a cleaner finish.</p>
+          </div>
+        </a>
+        <a href="portfolio.html" class="showcase-item reveal">
+          <div class="showcase-bg" style="background-image:url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="showcase-overlay"></div>
+          <div class="showcase-text">
+            <h4>Premium Presentation</h4>
+            <p>Detailing that looks bold, elegant, and professional.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta-box reveal">
+        <h2 class="section-title">Ready To Book?</h2>
+        <p>Take your vehicle from ordinary to standout with a premium detailing experience designed around gloss, finish, and presentation.</p>
+        <div class="btns" style="justify-content:center">
+          <a href="booking.html" class="btn btn-primary">Book Online</a>
+          <a href="portfolio.html" class="btn btn-outline">See Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-title">Gloss Boss Automotive</div>
+        <p>Professional car detailing with an aggressive, elegant finish. Replace this text later with your exact address, phone number, and business details.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Quick Links</div>
+        <a href="#">Home</a>
+        <a href="booking.html">Online Booking</a>
+        <a href="portfolio.html">Portfolio</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-title">Contact</div>
+        <a href="#">Phone: Add your number</a>
+        <a href="#">Email: Add your email</a>
+        <a href="#">Location: Add your area</a>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Gloss Boss Automotive Detailing. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const nextBtn = document.querySelector('.next');
+    const prevBtn = document.querySelector('.prev');
+    let current = 0;
+    let timer;
+
+    function showSlide(i){
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      current = i;
+    }
+    function nextSlide(){
+      let i = current + 1;
+      if(i >= slides.length) i = 0;
+      showSlide(i);
+    }
+    function prevSlide(){
+      let i = current - 1;
+      if(i < 0) i = slides.length - 1;
+      showSlide(i);
+    }
+    function startSlider(){ timer = setInterval(nextSlide, 5000); }
+    function resetSlider(){ clearInterval(timer); startSlider(); }
+
+    nextBtn.addEventListener('click', () => { nextSlide(); resetSlider(); });
+    prevBtn.addEventListener('click', () => { prevSlide(); resetSlider(); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => { showSlide(i); resetSlider(); }));
+    startSlider();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const menuBackdrop = document.querySelector('.menu-backdrop');
+    const mobileClose = document.querySelector('.mobile-menu-close');
+    const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+    function openMenu(){
+      mobileMenu.classList.add('open');
+      menuBackdrop.classList.add('show');
+      menuToggle.classList.add('active');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu(){
+      mobileMenu.classList.remove('open');
+      menuBackdrop.classList.remove('show');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('menu-open');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      if(mobileMenu.classList.contains('open')) closeMenu();
+      else openMenu();
+    });
+
+    mobileClose.addEventListener('click', closeMenu);
+    menuBackdrop.addEventListener('click', closeMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+  </script>
+</body>
+</html>
