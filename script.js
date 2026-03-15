@@ -23,16 +23,3 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-const bookingForm = document.getElementById('bookingForm');
-const formNote = document.getElementById('formNote');
-
-if (bookingForm && formNote) {
-  bookingForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const data = new FormData(bookingForm);
-    const name = data.get('name');
-    const service = data.get('service');
-    formNote.textContent = `Thanks ${name || ''}. Your ${service || 'booking'} request was captured in this demo form. Connect this form to email, WhatsApp, Netlify Forms, or Formspree before going live.`;
-    bookingForm.reset();
-  });
-}
