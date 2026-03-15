@@ -239,6 +239,9 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
           </div>
 
     <form action="https://formspree.io/f/xojknlnl" method="POST" class="booking-form reveal delay-1" id="bookingForm">
+            <input type="hidden" name="_subject" value="New Booking Request - Gloss Boss Automotive">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://glossbossautomotive.online/booking.html?submitted=1">
             <div class="form-row">
               <label>
                 Full Name
@@ -354,34 +357,21 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
       })();
     </script>
 
+
+  
 <script>
-const form = document.getElementById('bookingForm');
-const note = document.getElementById('formNote');
-
-if(form){
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-
-    const data = new FormData(form);
-
-    const response = await fetch(form.action, {
-      method: "POST",
-      body: data,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-
-    if(response.ok){
-      note.innerHTML = "✅ Booking request sent! We will contact you shortly.";
-      note.style.color = "#4ade80";
-      form.reset();
-    }else{
-      note.innerHTML = "❌ Something went wrong. Please try again or contact us on WhatsApp.";
-      note.style.color = "#ff4d4f";
+(function () {
+  const note = document.getElementById('formNote');
+  if (window.location.search.includes('submitted=1') && note) {
+    note.innerHTML = "✅ Booking request sent! We will contact you shortly.";
+    note.style.color = "#4ade80";
+    if (window.history.replaceState) {
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
     }
-  });
-}
+  }
+})();
 </script>
-  </body>
+
+</body>
 </html>
