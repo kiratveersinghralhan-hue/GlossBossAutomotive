@@ -54,8 +54,10 @@
     .nav{
       display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:18px;
     }
+    .brand{display:flex;align-items:center;gap:14px}
     .brand strong{display:block;font-size:1.35rem;letter-spacing:1px;text-transform:uppercase}
     .brand span{font-size:.78rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+    .logo-icon{width:52px;height:52px;border-radius:12px;object-fit:cover;flex-shrink:0}
 
     .menu{
       display:flex;gap:22px;align-items:center;flex-wrap:wrap
@@ -380,21 +382,23 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
   <div class="topbar">
     <div class="container">
       <div>Premium Car Detailing • Gloss Boss Automotive</div>
-      <div>Book Online • Portfolio • Professional Finish</div>
+      <div>📞 <a href="tel:8195000929">8195000929</a></div>
     </div>
   </div>
 
   <header>
     <div class="container nav">
       <a href="#" class="brand">
-        <strong>Gloss Boss</strong>
-        <span>Automotive Detailing</span>
+        <img src="logo.jpeg" alt="Gloss Boss Automotive" class="logo-icon">
+        <span class="brand-text">
+          <strong>Gloss Boss</strong>
+          <span>Automotive Detailing</span>
+        </span>
       </a>
 
       <nav class="menu">
         <a href="#">Home</a>
-        <a href="booking.html">Online Booking</a>
-        <a href="portfolio.html">Portfolio</a>
+        <a href="portfolio.html">Our Works</a>
         <a class="nav-cta" href="booking.html">Book Now</a>
       </nav>
 
@@ -413,8 +417,7 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
       <span>Automotive Detailing</span>
     </div>
     <a class="mobile-link" href="#">Home</a>
-    <a class="mobile-link" href="booking.html">Online Booking</a>
-    <a class="mobile-link" href="portfolio.html">Portfolio</a>
+    <a class="mobile-link" href="portfolio.html">Our Works</a>
     <a class="nav-cta" href="booking.html">Book Now</a>
   </aside>
 
@@ -428,7 +431,7 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
           <p>Professional interior and exterior detailing with a bold finish, refined shine, and attention to every detail.</p>
           <div class="btns">
             <a href="booking.html" class="btn btn-primary">Book Now</a>
-            <a href="portfolio.html" class="btn btn-outline">View Portfolio</a>
+            <a href="portfolio.html" class="btn btn-outline">Our Works</a>
           </div>
         </div>
       </div>
@@ -481,7 +484,7 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
         <p class="section-sub">At Gloss Boss Automotive, we focus on delivering a deep clean, high-gloss finish, and a professional presentation that makes every vehicle stand out. From paint enhancement to interior restoration, every detail matters.</p>
         <div class="btns">
           <a href="booking.html" class="btn btn-primary">Online Booking</a>
-          <a href="portfolio.html" class="btn btn-outline">View Portfolio</a>
+          <a href="portfolio.html" class="btn btn-outline">Our Works</a>
         </div>
       </div>
       <div class="panel">
@@ -523,31 +526,35 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
       <div class="services">
         <div class="service-card reveal">
           <div class="service-no">01</div>
-          <h3>Exterior Detailing</h3>
-          <p>Hand wash, decontamination, wheel cleaning, trim refresh, and a polished finish that brings out the best in your vehicle.</p>
+          <h3>PPF (Paint Protection Film)</h3>
+          <p>High-quality paint protection film that shields your car from scratches, stone chips, and daily road damage while keeping the finish premium.</p>
         </div>
         <div class="service-card reveal">
           <div class="service-no">02</div>
-          <h3>Interior Detailing</h3>
-          <p>Deep vacuuming, dashboard and panel treatment, seat care, and a clean cabin feel that looks refined and well-kept.</p>
+          <h3>Interior PPF</h3>
+          <p>Protect interior trims, screens, and touch surfaces with premium interior protection film that prevents scratches and wear.</p>
         </div>
         <div class="service-card reveal">
           <div class="service-no">03</div>
-          <h3>Paint & Gloss Enhancement</h3>
-          <p>Finish correction and shine-focused treatment designed to restore depth, clarity, and a more premium overall look.</p>
+          <h3>Ceramic / Graphene Coating</h3>
+          <p>Advanced ceramic and graphene coating for deep gloss, water beading, easier maintenance, and long-lasting paint protection.</p>
         </div>
-     
-      <div class="service-card reveal">
+        <div class="service-card reveal">
           <div class="service-no">04</div>
-          <h3>Window Tint</h3>
-          <p>Enhance privacy, reduce heat, and give your vehicle a sleek, premium look with professionally installed window tint.</p>
+          <h3>Interior / Exterior Detailing</h3>
+          <p>Complete detailing service with deep interior cleaning and exterior enhancement to restore a fresh, clean, and showroom-style look.</p>
         </div>
- <div class="service-card reveal">
+        <div class="service-card reveal">
           <div class="service-no">05</div>
-          <h3>Dry Cleaning</h3>
-          <p>Deep interior dry cleaning that removes dirt, stains, and odors to restore a fresh, comfortable cabin.</p>
+          <h3>Premium Dry Cleaning</h3>
+          <p>Professional dry cleaning that removes stains, dust, and odors from seats, carpets, and upholstery for a refreshed cabin.</p>
         </div>
-      </div>
+        <div class="service-card reveal">
+          <div class="service-no">06</div>
+          <h3>Bodykits / Service</h3>
+          <p>Body kit fitment and custom styling upgrades that enhance your vehicle’s appearance, presence, and overall road appeal.</p>
+        </div>
+      </div></div>
     </div>
   </section>
 
@@ -596,7 +603,7 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
         <p>Take your vehicle from ordinary to standout with a premium detailing experience designed around gloss, finish, and presentation.</p>
         <div class="btns" style="justify-content:center">
           <a href="booking.html" class="btn btn-primary">Book Online</a>
-          <a href="portfolio.html" class="btn btn-outline">See Portfolio</a>
+          <a href="portfolio.html" class="btn btn-outline">Our Works</a>
         </div>
       </div>
     </div>
@@ -615,7 +622,7 @@ box-shadow:0 12px 24px rgba(0,0,0,.25);
         <div class="footer-title">Quick Links</div>
         <a href="#">Home</a>
         <a href="booking.html">Online Booking</a>
-        <a href="portfolio.html">Portfolio</a>
+        <a href="portfolio.html">Our Works</a>
       </div>
       <div class="footer-col">
         <div class="footer-title">Contact</div>
